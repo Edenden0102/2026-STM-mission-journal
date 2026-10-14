@@ -20,13 +20,23 @@ Future changes saved to `main` deploy automatically. Readers do **not** need a G
 ## Write and share an update
 
 1. Choose the date. Write today's activities in the Chinese or English box.
-2. Write reflections; use **Add Reflection / 添加分享** for separate contributions. The four bilingual writing invitations are optional and are excluded from the PDF.
-3. Add prayer requests. The final PDF section is for prayer partners to complete after reading; the STM team does not fill it in.
-4. Enter the other language yourself, or select the translation consent checkbox and press the relevant **中文 → English** or **English → 中文** button. Review and edit translations before sharing.
-5. Select **Preview & export PDF / 预览并导出 PDF**. Use **Back to editing** to correct anything. Select **Download PDF** when ready.
-6. On iPhone, open the browser's download and use **Share → Save to Files** if needed. On Android, check **Downloads**. Send the saved PDF to prayer partners through your usual messaging app.
+2. Add up to six photos under **Today's Photos / 今日照片**, immediately after activities. Preview, remove, or replace any photo and add optional Chinese/English captions. Caption translation works like the other text fields.
+3. Write reflections; use **Add Reflection / 添加分享** for separate contributions. The four bilingual writing invitations are optional and are excluded from the PDF.
+4. Add prayer requests. The final PDF section is for prayer partners to complete after reading; the STM team does not fill it in.
+5. Enter the other language yourself, or select the translation consent checkbox and press the relevant **中文 → English** or **English → 中文** button. Review and edit translations before sharing.
+6. Select **Preview & export PDF / 预览并导出 PDF**. Use **Back to editing** to correct anything. Select **Download PDF** when ready.
+7. On iPhone, open the browser's download and use **Share → Save to Files** if needed. On Android, check **Downloads**. Send the saved PDF to prayer partners through your usual messaging app.
 
-The PDF is A4 with both languages, date, activities, team reflections, prayer requests, a final “Prayer Partners’ Reflection / 代祷伙伴回应” section, page numbers, and Chinese-capable fonts bundled with the website. Empty language fields are marked “Not provided / 未填写”. Long entries continue onto additional pages. The final recipient section starts on its own page, includes a fixed Chinese–English invitation, and reserves half an A4 page (148.5 mm) with 15 subtle writing lines. These lines are actual PDF drawing commands and remain when printed, regardless of browser background-printing settings. PDF pages use high-resolution raster text to preserve Chinese rendering across PDF viewers; PDF text is not selectable or searchable. The preview lets you check content; final A4 pagination is applied during export.
+The PDF is A4 with both languages, date, activities, photos and bilingual captions, team reflections, prayer requests, a final “Prayer Partners’ Reflection / 代祷伙伴回应” section, page numbers, and Chinese-capable fonts bundled with the website. Empty journal language fields are marked “Not provided / 未填写”; optional empty photo captions are omitted. Long entries continue onto additional pages. The final recipient section starts on its own page, includes a fixed Chinese–English invitation, and reserves half an A4 page (148.5 mm) with 15 subtle writing lines. These lines are actual PDF drawing commands and remain when printed, regardless of browser background-printing settings. PDF pages use high-resolution raster text to preserve Chinese rendering across PDF viewers; PDF text is not selectable or searchable. The preview lets you check content; final A4 pagination is applied during export.
+
+## Photos
+
+- Choose JPG/JPEG, PNG, or WebP. HEIC/HEIF (common iPhone originals) works only when the browser can decode it; otherwise the app asks for JPG or PNG. No remote image converter is used. Your phone may automatically supply a compatible image from its photo picker.
+- Photos are processed sequentially on the device to reduce memory use, contained without cropping, and converted to JPEG. The longest edge is at most 1280 pixels, with a target maximum of 160 KB per compressed photo. Compression removes embedded EXIF/location metadata and honors native camera orientation. Original photos are not changed. Files larger than 40 MB or 60 megapixels are rejected with a message.
+- The A4 PDF uses a two-column gallery before reflections, with full landscape/portrait images and both caption languages. Long captions continue below the gallery without truncation. Photos remain compressed JPEGs inside the PDF, instead of large PNG screenshots. PDF size depends on the number of pages and entry length; the six-photo stress-test PDF was approximately 641 KB.
+- Photos are stored in the same local draft and included as compressed image data in JSON exports. Earlier drafts without photos still import normally. Import checks that image data is local JPEG data and actually decodes. The JSON file limit remains 5 MB.
+- If device storage is full or disabled, editing and exporting still work, but new changes are not safely saved. The app displays a warning; **export a JSON backup before reloading**, or remove photos to reduce the draft size. This warning also applies to lengthy text drafts.
+- Photos are never uploaded to GitHub, MyMemory, or another server. Only caption text is sent when you explicitly allow and click automatic translation. Keep your JSON backups and PDFs private.
 
 ## Drafts and privacy
 
@@ -61,9 +71,9 @@ npx playwright install chromium
 npm test
 ```
 
-The test runner starts the development server automatically. Tests exercise mobile layout, local draft restoration, multiple reflections, translation failure and a mocked successful response, originals preserved, JSON round trips and invalid imports, escaped preview content, guidelines exclusion, and multi-page A4 PDF download. Generated artifacts are ignored by Git.
+The test runner starts the development server automatically. Tests run in desktop and touch-enabled mobile Chromium viewports and exercise layout, photo uploads/removal/replacement, the six-photo limit, compression, camera orientation, local-only requests, image-inclusive JSON backups, caption translation, storage failure warnings, photo placement/aspect ratios in PDF drawing commands, printable half-page writing space, local draft restoration, multiple reflections, translation failure and a mocked successful response, originals preserved, JSON round trips and invalid imports, escaped preview content, guidelines exclusion, and multi-page A4 PDF download. Generated artifacts are ignored by Git.
 
-Current validation: production build passed; five mobile-viewport Chromium tests passed; exported Chinese PDF was visually inspected. Actual iPhone Safari/Android hardware testing and live MyMemory translation remain separate checks. Cloud egress initially blocked MyMemory and Playwright downloads; the installed `/usr/bin/chromium` supports the tested workflow without a browser download.
+Current validation: production build passed; 20 desktop/mobile Chromium tests passed; exported Chinese photo gallery and recipient writing page were visually inspected. Actual iPhone Safari/Android hardware testing and live MyMemory translation remain separate checks. Cloud egress initially blocked MyMemory and Playwright downloads; the installed `/usr/bin/chromium` supports the tested workflow without a browser download.
 
 ## Open-source components
 

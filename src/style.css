@@ -422,3 +422,73 @@ dialog::backdrop {
   flex: 1;
   border-bottom: 1px solid #bec8ba;
 }
+
+.photo-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.photo-heading > div {
+  display: flex;
+  gap: 8px;
+}
+.photo-heading button {
+  font-size: 12px;
+}
+.photo-image {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  background: #f4f6ef;
+  border-radius: 10px;
+  margin: 12px 0 20px;
+}
+.photo-card textarea {
+  min-height: 95px;
+}
+#storage-warning:not(:empty) {
+  background: #fff4dd;
+  color: #735324;
+  padding: 14px;
+  border: 1px solid #e2cda1;
+  border-radius: 8px;
+  font-size: 13px;
+}
+#photo-status {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.preview-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.preview-gallery figure {
+  margin: 0;
+  min-width: 0;
+}
+.preview-gallery img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  background: #f4f6ef;
+}
+.preview-gallery figcaption small {
+  color: #68766b;
+}
+.preview-gallery figcaption p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+@media (max-width: 600px) {
+  .photo-image {
+    height: 230px;
+  }
+  .preview-gallery {
+    grid-template-columns: 1fr;
+  }
+}

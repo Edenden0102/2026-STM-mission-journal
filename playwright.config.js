@@ -8,6 +8,18 @@ export default defineConfig({
       ? { executablePath: process.env.CHROMIUM_PATH }
       : {},
   },
+  projects: [
+    {
+      name: "mobile",
+      use: {
+        viewport: { width: 390, height: 844 },
+        isMobile: true,
+        hasTouch: true,
+      },
+    },
+    { name: "desktop", use: { viewport: { width: 1280, height: 900 } } },
+  ],
+  workers: 2,
   webServer: {
     command: "npm run dev -- --port 5173",
     url: "http://127.0.0.1:5173",

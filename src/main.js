@@ -58,7 +58,11 @@ const labels = {
   activities: "Today's Activities | 当日主要行程",
   reflections: "Reflections | 今日分享",
   prayer: "Prayer Requests | 代祷事项",
-  partners: "Reflection for Prayer Partners | 给代祷伙伴的默想",
+  partners: "Prayer Partners’ Reflection / 代祷伙伴回应",
+};
+const partnerInvitation = {
+  en: "As you read today's sharing, what has God placed on your heart? You may write down your reflections, prayers, or responses below.",
+  zh: "阅读今天的短宣分享后，神在你心中有什么感动？欢迎在下面写下你的领受、祷告或回应。",
 };
 const guidelines = [
   [
@@ -89,7 +93,7 @@ function inputs(key, p, index = "") {
 }
 function render() {
   document.querySelector("#app").innerHTML =
-    `<header><div class="brand">✦ &nbsp; GOLDEN TRIANGLE · THAILAND · 2026</div><h1>Mission Journal<span lang="zh">短宣每日分享</span></h1><p>A little space to notice God’s work.<br>记录恩典，与代祷伙伴同行。</p></header><main><div class="toolbar"><span id="saved" role="status">Draft saved on this device / 草稿保存在本机</span><div><button id="export-json">Export draft / 导出</button><button id="import-json">Import draft / 导入</button><input hidden type="file" id="file" accept="application/json,.json"></div></div><div class="privacy"><strong>Your journal stays with you. / 日志留在您的设备。</strong><p>No account or public storage. Export a backup before changing devices or clearing browser data. Optional translation sends only the selected text to MyMemory, a third-party free service. / 无需登录。请导出备份。可选翻译会将所选文字发送至第三方 MyMemory 服务。</p><label class="consent"><input type="checkbox" id="consent"> Allow selected text to be sent for translation / 同意发送所选文字以翻译</label></div><p id="message" role="status" aria-live="polite">${esc(initialMessage)}</p><section><div class="section-title"><b>01</b><h2>Date <span>日期</span></h2></div><label for="date">Journal date / 分享日期</label><input type="date" id="date" value="${draft.date}" required></section><section><div class="section-title"><b>02</b><h2>Today's Activities <span>当日主要行程</span></h2></div>${inputs("activities", draft.activities)}</section><section><div class="section-title"><b>03</b><h2>Reflections <span>今日分享</span></h2></div><details open><summary>Writing invitations / 分享指引 <small>Optional · 不必逐题回答</small></summary><ol>${guidelines.map(([z, e]) => `<li><span lang="zh">${z}</span><span>${e}</span></li>`).join("")}</ol><p class="hint">These invitations will not appear in your PDF. / 指引不会出现在 PDF 中。</p></details><div id="reflections">${draft.reflections.map((p, i) => `<article><div class="reflection-heading"><h3>Reflection ${i + 1} / 分享 ${i + 1}</h3>${draft.reflections.length > 1 ? `<button data-remove="${i}">Remove / 移除</button>` : ""}</div>${inputs("reflections", p, i)}</article>`).join("")}</div><button id="add">＋ Add Reflection / 添加分享</button></section><section><div class="section-title"><b>04</b><h2>Prayer Requests <span>代祷事项</span></h2></div>${inputs("prayer", draft.prayer)}</section><section><div class="section-title"><b>05</b><h2>Reflection for Prayer Partners <span>给代祷伙伴的默想</span></h2></div><p class="hint">Invite your prayer partners to notice God’s work in their own lives. / 邀请代祷伙伴思想神在他们生命中的工作。</p>${inputs("partners", draft.partners)}</section><div class="finish"><p>Ready to share the day’s story? / 准备分享今天的故事？</p><button class="primary" id="preview">Preview & export PDF / 预览并导出 PDF</button></div><footer>Made for prayer, reflection, and connection.<br>2026 Golden Triangle STM · 金三角短宣</footer></main><dialog id="preview-dialog"><div class="dialog-actions"><button id="edit">← Back to editing / 返回编辑</button><button class="primary" id="pdf">Download PDF / 下载 PDF</button></div><p class="hint">Review below. To change text, return to editing. / 请检查内容，修改请返回编辑。</p><div id="document"></div><p id="pdf-status" role="status"></p></dialog>`;
+    `<header><div class="brand">✦ &nbsp; GOLDEN TRIANGLE · THAILAND · 2026</div><h1>Mission Journal<span lang="zh">短宣每日分享</span></h1><p>A little space to notice God’s work.<br>记录恩典，与代祷伙伴同行。</p></header><main><div class="toolbar"><span id="saved" role="status">Draft saved on this device / 草稿保存在本机</span><div><button id="export-json">Export draft / 导出</button><button id="import-json">Import draft / 导入</button><input hidden type="file" id="file" accept="application/json,.json"></div></div><div class="privacy"><strong>Your journal stays with you. / 日志留在您的设备。</strong><p>No account or public storage. Export a backup before changing devices or clearing browser data. Optional translation sends only the selected text to MyMemory, a third-party free service. / 无需登录。请导出备份。可选翻译会将所选文字发送至第三方 MyMemory 服务。</p><label class="consent"><input type="checkbox" id="consent"> Allow selected text to be sent for translation / 同意发送所选文字以翻译</label></div><p id="message" role="status" aria-live="polite">${esc(initialMessage)}</p><section><div class="section-title"><b>01</b><h2>Date <span>日期</span></h2></div><label for="date">Journal date / 分享日期</label><input type="date" id="date" value="${draft.date}" required></section><section><div class="section-title"><b>02</b><h2>Today's Activities <span>当日主要行程</span></h2></div>${inputs("activities", draft.activities)}</section><section><div class="section-title"><b>03</b><h2>Reflections <span>今日分享</span></h2></div><details open><summary>Writing invitations / 分享指引 <small>Optional · 不必逐题回答</small></summary><ol>${guidelines.map(([z, e]) => `<li><span lang="zh">${z}</span><span>${e}</span></li>`).join("")}</ol><p class="hint">These invitations will not appear in your PDF. / 指引不会出现在 PDF 中。</p></details><div id="reflections">${draft.reflections.map((p, i) => `<article><div class="reflection-heading"><h3>Reflection ${i + 1} / 分享 ${i + 1}</h3>${draft.reflections.length > 1 ? `<button data-remove="${i}">Remove / 移除</button>` : ""}</div>${inputs("reflections", p, i)}</article>`).join("")}</div><button id="add">＋ Add Reflection / 添加分享</button></section><section><div class="section-title"><b>04</b><h2>Prayer Requests <span>代祷事项</span></h2></div>${inputs("prayer", draft.prayer)}</section><section><div class="section-title"><b>05</b><h2>Prayer Partners’ Reflection <span>代祷伙伴回应</span></h2></div><p class="hint">For prayer partners reading the PDF. A bilingual invitation and half a page of writing lines are included automatically; the STM team does not need to fill this in. / 此栏供阅读 PDF 的代祷伙伴回应，自动附上双语邀请和半页书写横线，短宣队无需填写。</p></section><div class="finish"><p>Ready to share the day’s story? / 准备分享今天的故事？</p><button class="primary" id="preview">Preview & export PDF / 预览并导出 PDF</button></div><footer>Made for prayer, reflection, and connection.<br>2026 Golden Triangle STM · 金三角短宣</footer></main><dialog id="preview-dialog"><div class="dialog-actions"><button id="edit">← Back to editing / 返回编辑</button><button class="primary" id="pdf">Download PDF / 下载 PDF</button></div><p class="hint">Review below. To change text, return to editing. / 请检查内容，修改请返回编辑。</p><div id="document"></div><p id="pdf-status" role="status"></p></dialog>`;
   bind();
 }
 function message(s) {
@@ -268,7 +272,7 @@ function previewHtml() {
   )
     .map(
       ([k, l]) =>
-        `<h3>${l}</h3>${k === "reflections" ? draft.reflections.map((p, i) => `<h4>${i + 1}. 分享 / Reflection</h4>${content(p)}`).join("") : content(draft[k])}`,
+        `<h3>${l}</h3>${k === "partners" ? `<div class="partner-response"><p>${esc(partnerInvitation.en)}</p><p lang="zh">${partnerInvitation.zh}</p><div class="writing-space" aria-label="Blank writing space for prayer partners / 代祷伙伴书写空间">${Array.from({ length: 15 }, () => `<div class="writing-line"></div>`).join("")}</div></div>` : k === "reflections" ? draft.reflections.map((p, i) => `<h4>${i + 1}. 分享 / Reflection</h4>${content(p)}`).join("") : content(draft[k])}`,
     )
     .join("")}`;
 }
@@ -280,16 +284,13 @@ async function exportPdf() {
   status.textContent = "Preparing Chinese fonts & PDF… / 正在准备字体和 PDF…";
   try {
     const all =
-      [
-        snapshot.activities,
-        ...snapshot.reflections,
-        snapshot.prayer,
-        snapshot.partners,
-      ]
+      [snapshot.activities, ...snapshot.reflections, snapshot.prayer]
         .map((p) => p.zh + p.en)
         .join("") +
       Object.values(labels).join("") +
-      "2026 金三角短宣每日分享日期未填写分享";
+      "2026 金三角短宣每日分享日期未填写分享" +
+      partnerInvitation.en +
+      partnerInvitation.zh;
     await document.fonts.load('400 24px "Noto Sans SC"', all);
     await document.fonts.ready;
     const pdf = new jsPDF({ unit: "mm", format: "a4", compress: true });
@@ -357,6 +358,7 @@ async function exportPdf() {
     heading("Date | 日期");
     text(snapshot.date);
     for (const [k, l] of Object.entries(labels)) {
+      if (k === "partners") continue;
       heading(l);
       const pairs = k === "reflections" ? snapshot.reflections : [snapshot[k]];
       pairs.forEach((p, i) => {
@@ -368,7 +370,36 @@ async function exportPdf() {
         y += 18;
       });
     }
+    // Keep the recipient invitation and its writing area together on a final page.
     finish();
+    newPage();
+    heading(labels.partners);
+    // Wrap the fixed English invitation at word boundaries.
+    let invitationRow = "";
+    ctx.font = '25px "Noto Sans SC",sans-serif';
+    for (const word of partnerInvitation.en.split(" ")) {
+      const candidate = invitationRow ? `${invitationRow} ${word}` : word;
+      if (ctx.measureText(candidate).width > W - 2 * M && invitationRow) {
+        line(invitationRow);
+        invitationRow = word;
+      } else {
+        invitationRow = candidate;
+      }
+    }
+    line(invitationRow);
+    y += 12;
+    text(partnerInvitation.zh);
+    y += 25;
+    const writingTop = (y / H) * 297;
+    const writingHeight = 148.5; // Half of an A4 page, never collapsed by pagination.
+    finish();
+    // PDF drawing commands print independently of browser background settings.
+    pdf.setDrawColor(190, 200, 186);
+    pdf.setLineWidth(0.15);
+    for (let i = 1; i <= 15; i++) {
+      const lineY = writingTop + (i * writingHeight) / 15;
+      pdf.line((M / W) * 210, lineY, ((W - M) / W) * 210, lineY);
+    }
     download(pdf.output("blob"), `mission-journal-${snapshot.date}.pdf`);
     status.textContent =
       "PDF downloaded. On iPhone, use the download or Share menu to save to Files. / PDF 已下载；iPhone 可通过分享菜单保存到文件。";

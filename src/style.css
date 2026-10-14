@@ -409,3 +409,16 @@ dialog::backdrop {
     font-size: 19px;
   }
 }
+
+.partner-response p {
+  font-size: 14px;
+}
+.writing-space {
+  height: 148.5mm;
+  display: flex;
+  flex-direction: column;
+}
+.writing-line {
+  flex: 1;
+  border-bottom: 1px solid #bec8ba;
+}

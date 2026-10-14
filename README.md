@@ -21,12 +21,12 @@ Future changes saved to `main` deploy automatically. Readers do **not** need a G
 
 1. Choose the date. Write today's activities in the Chinese or English box.
 2. Write reflections; use **Add Reflection / 添加分享** for separate contributions. The four bilingual writing invitations are optional and are excluded from the PDF.
-3. Add prayer requests and a short reflection or question for prayer partners.
+3. Add prayer requests. The final PDF section is for prayer partners to complete after reading; the STM team does not fill it in.
 4. Enter the other language yourself, or select the translation consent checkbox and press the relevant **中文 → English** or **English → 中文** button. Review and edit translations before sharing.
 5. Select **Preview & export PDF / 预览并导出 PDF**. Use **Back to editing** to correct anything. Select **Download PDF** when ready.
 6. On iPhone, open the browser's download and use **Share → Save to Files** if needed. On Android, check **Downloads**. Send the saved PDF to prayer partners through your usual messaging app.
 
-The PDF is A4 with both languages, date, all four writing sections, page numbers, and Chinese-capable fonts bundled with the website. Empty language fields are marked “Not provided / 未填写”. Long entries continue onto additional pages. PDF pages use high-resolution raster text to preserve Chinese rendering across PDF viewers; PDF text is not selectable or searchable. The preview lets you check content; final A4 pagination is applied during export.
+The PDF is A4 with both languages, date, activities, team reflections, prayer requests, a final “Prayer Partners’ Reflection / 代祷伙伴回应” section, page numbers, and Chinese-capable fonts bundled with the website. Empty language fields are marked “Not provided / 未填写”. Long entries continue onto additional pages. The final recipient section starts on its own page, includes a fixed Chinese–English invitation, and reserves half an A4 page (148.5 mm) with 15 subtle writing lines. These lines are actual PDF drawing commands and remain when printed, regardless of browser background-printing settings. PDF pages use high-resolution raster text to preserve Chinese rendering across PDF viewers; PDF text is not selectable or searchable. The preview lets you check content; final A4 pagination is applied during export.
 
 ## Drafts and privacy
 
@@ -63,7 +63,7 @@ npm test
 
 The test runner starts the development server automatically. Tests exercise mobile layout, local draft restoration, multiple reflections, translation failure and a mocked successful response, originals preserved, JSON round trips and invalid imports, escaped preview content, guidelines exclusion, and multi-page A4 PDF download. Generated artifacts are ignored by Git.
 
-Current validation: production build passed; four mobile-viewport Chromium tests passed; exported Chinese PDF was visually inspected. Actual iPhone Safari/Android hardware testing and live MyMemory translation remain separate checks. Cloud egress initially blocked MyMemory and Playwright downloads; the installed `/usr/bin/chromium` supports the tested workflow without a browser download.
+Current validation: production build passed; five mobile-viewport Chromium tests passed; exported Chinese PDF was visually inspected. Actual iPhone Safari/Android hardware testing and live MyMemory translation remain separate checks. Cloud egress initially blocked MyMemory and Playwright downloads; the installed `/usr/bin/chromium` supports the tested workflow without a browser download.
 
 ## Open-source components
 
